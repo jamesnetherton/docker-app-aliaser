@@ -27,7 +27,7 @@ This project makes use of [jq](https://stedolan.github.io/jq/) for JSON parsing,
 
 ## Configuration
 
-Copy or source the script from [docker-app-aliser.sh](docker-app-aliser.sh) into your desired shell profile dotfile. Now create `${HOME}/.dockerapps`.
+Copy or source the script from [docker-app-aliser.sh](docker-app-aliaser.sh) into your desired shell profile dotfile. Now create `${HOME}/.dockerapps`.
 
 Docker apps can be specified in `${HOME}/.dockerapps` with JSON like the following.
 
@@ -41,7 +41,7 @@ Docker apps can be specified in `${HOME}/.dockerapps` with JSON like the followi
     },
     {
       "name": "tomcat",
-      "image": "tomcat:8.9",
+      "image": "tomcat:8",
       "daemonize": "false",
       "autoremove": "true"
     }
@@ -54,7 +54,7 @@ When you're done, load up your aliases by starting a new shell or sourcing your 
 ### Docker apps JSON
 
 | Attribute  | Description  | Required |
-|---|---|
+|---|---|---| 
 | name  | This determines the name of the Docker container | Yes |
 | image  | The Docker image to use  | Yes |
 | args  | Docker command line arguments like volumes, environment variables, devices etc  | No |
