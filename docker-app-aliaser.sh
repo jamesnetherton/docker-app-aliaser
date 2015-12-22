@@ -18,6 +18,7 @@ function createOrStartContainer() {
   local ARGS="$(cat ${APP_OPTS} | jq -r ".apps[] | select(.name == \"${APP}\").args")"
   local DAEMONIZE="$(cat ${APP_OPTS} | jq -r ".apps[] | select(.name == \"${APP}\").daemonize")"
   local AUTOREMOVE="$(cat ${APP_OPTS} | jq -r ".apps[] | select(.name == \"${APP}\").autoremove")"
+  local PULL="$(cat ${APP_OPTS} | jq -r ".apps[] | select(.name == \"${APP}\").pull")"
   local DOCKER_ARGS=""
   local EXTRA_ARGS="-it"
   local CREATED="false"
@@ -30,10 +31,18 @@ function createOrStartContainer() {
     local RUNNING="$(echo ${CONTAINER_INFO} | cut -f2 -d:)"
 
     if [[ "${NAME}" == "/${APP}" ]] && [[ "${RUNNING}" == "false" ]]; then
-      docker start ${APP}
-      CREATED="true"
+      if [[ "${PULL}" == "false" ]]; then
+        docker start ${APP}
+        CREATED="true"
+      else
+        docker rm -f ${APP}
+      fi
     elif [[ "${NAME}" == "/${APP}" ]] && [[ "${RUNNING}" == "true" ]]; then
       CREATED="true"
+    fi
+
+    if [[ "${PULL}" == "true" ]]; then
+      docker pull "${IMAGE}"
     fi
 
     if [[ "${CREATED}" == "false" ]]; then

@@ -43,7 +43,8 @@ Docker apps can be specified in `${HOME}/.dockerapps` with JSON like the followi
       "name": "tomcat",
       "image": "tomcat:8",
       "daemonize": "false",
-      "autoremove": "true"
+      "autoremove": "true",
+      "pull", "true"
     }
   ]
 }
@@ -54,9 +55,10 @@ When you're done, load up your aliases by starting a new shell or sourcing your 
 ### Docker apps JSON
 
 | Attribute  | Description  | Required |
-|---|---|---| 
+|---|---|---|
 | name  | This determines the name of the Docker container | Yes |
 | image  | The Docker image to use  | Yes |
 | args  | Docker command line arguments like volumes, environment variables, devices etc  | No |
 | daemonize | Whether to start the container in the background. The default is __true__. | No |
 | autoremove | When __true__ (the default is __false__), appends `--rm` to the docker run command. Only takes effect when daemonize is __false__. | No |
+| pull | Whether a `docker pull` should be run before the container is started | No |
