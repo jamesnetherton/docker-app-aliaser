@@ -19,6 +19,7 @@ function createOrStartContainer() {
   local DAEMONIZE="$(cat ${APP_OPTS} | jq -r ".apps[] | select(.name == \"${APP}\").daemonize")"
   local AUTOREMOVE="$(cat ${APP_OPTS} | jq -r ".apps[] | select(.name == \"${APP}\").autoremove")"
   local PULL="$(cat ${APP_OPTS} | jq -r ".apps[] | select(.name == \"${APP}\").pull")"
+  local CMD="$(cat ${APP_OPTS} | jq -r ".apps[] | select(.name == \"${APP}\").command")"
   local DOCKER_ARGS=""
   local EXTRA_ARGS="-it"
   local CREATED="false"
@@ -58,7 +59,7 @@ function createOrStartContainer() {
         DOCKER_ARGS="${ARGS}"
       fi
 
-      eval "docker run --name ${APP} ${DOCKER_ARGS} ${EXTRA_ARGS} ${IMAGE} ${APP_ARGS}"
+      eval "docker run --name ${APP} ${DOCKER_ARGS} ${EXTRA_ARGS} ${IMAGE} ${CMD} ${APP_ARGS}"
     fi
   else
     echo "${APP} is not configured"

@@ -62,3 +62,4 @@ When you're done, load up your aliases by starting a new shell or sourcing your 
 | daemonize | Whether to start the container in the background. The default is __true__. | No |
 | autoremove | When __true__ (the default is __false__), appends `--rm` to the docker run command. Only takes effect when daemonize is __false__. | No |
 | pull | Whether a `docker pull` should be run before the container is started | No |
+| command | Any fixed command line arguments to pass to the image `ENTRYPOINT` or overrides the default `CMD` | No |
